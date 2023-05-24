@@ -7,15 +7,15 @@ function fillButton(index, text) {
 }
 // pre-made a function. You can use this function to present an alert to say someone wins
 function winningAlert(winner) {
-  if(confirm(`Horraaay, ${winner} wins!`)){
-     // The code here will be exectued if you press on OK button that will pop on the window 
+  if (confirm(`Horraaay, ${winner} wins!`)) {
+    // The code here will be exectued if you press on OK button that will pop on the window
   }
 }
 
 // SAMPLE CODE: This code fills the 1st and 9th button with X and O initially
 // ❗️ Delete this code once you are done testing
-fillButton(1, "X");
-fillButton(9, "O");
+// fillButton(1, "X");
+// fillButton(9, "O");
 
 /**
  *
@@ -24,9 +24,28 @@ fillButton(9, "O");
  * Add your code here, since this is going to be your main function
  * That interacts with the UI
  */
+
 function clickButton(index) {
   console.log(`Button number ${index} is clicked`);
-  // Your main code here.
+  if (document.getElementById(index).innerHTML === "X") {
+    fillButton(1, "X");
+  } else if (index === 2) {
+    fillButton(2, "O");
+  } else if (index === 3) {
+    fillButton(3, "O");
+  } else if (index === 4) {
+    fillButton(4, "O");
+  } else if (index === 5) {
+    fillButton(5, "O");
+  } else if (index === 6) {
+    fillButton(6, "O");
+  } else if (index === 7) {
+    fillButton(7, "O");
+  } else if (index === 8) {
+    fillButton(8, "O");
+  } else if (index === 9) {
+    fillButton(9, "O");
+  }
 }
 
 /**
