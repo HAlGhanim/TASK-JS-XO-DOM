@@ -33,10 +33,10 @@ body {
   font-family: "Permanent Marker", cursive;
 }
 
-.green {
+.xobutton.green {
   color: green;
 }
 
-.red {
+.xobutton.red {
   color: red;
 }

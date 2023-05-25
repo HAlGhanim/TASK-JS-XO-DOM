@@ -24,30 +24,69 @@ function winningAlert(winner) {
  * Add your code here, since this is going to be your main function
  * That interacts with the UI
  */
+const winConditions = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [1, 4, 7],
+  [2, 5, 8],
+  [3, 6, 9],
+  [1, 5, 9],
+  [3, 5, 7],
+];
 
-function clickButton(index) {
-  console.log(`Button number ${index} is clicked`);
-  if (document.getElementById(index).innerHTML === "X") {
-    fillButton(1, "X");
-  } else if (index === 2) {
-    fillButton(2, "O");
-  } else if (index === 3) {
-    fillButton(3, "O");
-  } else if (index === 4) {
-    fillButton(4, "O");
-  } else if (index === 5) {
-    fillButton(5, "O");
-  } else if (index === 6) {
-    fillButton(6, "O");
-  } else if (index === 7) {
-    fillButton(7, "O");
-  } else if (index === 8) {
-    fillButton(8, "O");
-  } else if (index === 9) {
-    fillButton(9, "O");
+let currentPlayer = "X";
+let turns = 0;
+let gameOver = false; //This variable will be set to true if the game is over and its also there to enable the tie condition to work
+
+function changePlayer() {
+  if (currentPlayer === "X") {
+    currentPlayer = "O";
+  } else {
+    currentPlayer = "X";
   }
 }
 
+function clickButton(index) {
+  //the if condition checks if the button is empty and if the game isn't over
+  //If I remove the !gameOver condition it will still detect a winner but it won't prevent me from filling the empty buttons even after the game is over
+  //The only way that removing the !gameOver condition isn't an issue is if I have the restartGame function making it so that the buttons are emptied
+  if (!gameOver && document.getElementById(index).innerHTML === "") {
+    fillButton(index, currentPlayer);
+    turns++;
+    checkWinner(currentPlayer);
+    changePlayer();
+  }
+}
+
+function checkWinner(player) {
+  for (let i = 0; i < winConditions.length; i++) {
+    const [a, b, c] = winConditions[i];
+    const first = document.getElementById(a).innerHTML;
+    const second = document.getElementById(b).innerHTML;
+    const third = document.getElementById(c).innerHTML;
+
+    if (first === player && second === player && third === player) {
+      gameOver = true;
+      winningAlert(player);
+      restartGame();
+      break;
+    }
+  }
+  if (turns === 9 && !gameOver) {
+    alert("It's a tie!");
+    restartGame();
+  }
+}
+function restartGame() {
+  numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  numArray.forEach((element) => {
+    fillButton(element, "");
+  });
+  turns = 0;
+  gameOver = false;
+  changePlayer();
+}
 /**
  * (Optional) It's always a good idea to make a function for every single purpose.
  */
