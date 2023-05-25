@@ -52,7 +52,13 @@ function clickButton(index) {
   //If I remove the !gameOver condition it will still detect a winner but it won't prevent me from filling the empty buttons even after the game is over
   //The only way that removing the !gameOver condition isn't an issue is if I have the restartGame function making it so that the buttons are emptied
   if (!gameOver && document.getElementById(index).innerHTML === "") {
-    fillButton(index, currentPlayer);
+    if (currentPlayer === "X") {
+      fillButton(index, currentPlayer);
+      document.getElementById(index).classList.add("green");
+    } else {
+      fillButton(index, currentPlayer);
+      document.getElementById(index).classList.add("red");
+    }
     turns++;
     checkWinner(currentPlayer);
     changePlayer();
@@ -70,7 +76,7 @@ function checkWinner(player) {
       gameOver = true;
       winningAlert(player);
       restartGame();
-      break;
+      // break; //Commented this because the restartGame function will reset the game so there is no need to break out of the loop
     }
   }
   if (turns === 9 && !gameOver) {
@@ -82,10 +88,12 @@ function restartGame() {
   numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   numArray.forEach((element) => {
     fillButton(element, "");
+    document.getElementById(element).classList.remove("green");
+    document.getElementById(element).classList.remove("red");
   });
   turns = 0;
   gameOver = false;
-  changePlayer();
+  currentPlayer = "O";
 }
 /**
  * (Optional) It's always a good idea to make a function for every single purpose.
