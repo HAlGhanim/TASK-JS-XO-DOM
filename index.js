@@ -60,8 +60,9 @@ function clickButton(index) {
       document.getElementById(index).classList.add("red");
     }
     turns++;
-    checkWinner(currentPlayer);
-    changePlayer();
+    if (!checkWinner(currentPlayer)) {
+      changePlayer();
+    }
   }
 }
 
@@ -76,13 +77,17 @@ function checkWinner(player) {
       gameOver = true;
       winningAlert(player);
       restartGame();
+      return true;
       // break; //Commented this because the restartGame function will reset the game so there is no need to break out of the loop
     }
   }
   if (turns === 9 && !gameOver) {
     alert("It's a tie!");
     restartGame();
+    return true;
   }
+
+  return false;
 }
 function restartGame() {
   numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -93,7 +98,7 @@ function restartGame() {
   });
   turns = 0;
   gameOver = false;
-  currentPlayer = "O";
+  currentPlayer = "X";
 }
 /**
  * (Optional) It's always a good idea to make a function for every single purpose.
